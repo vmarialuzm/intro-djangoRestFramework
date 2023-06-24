@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 
 class Todo(models.Model):
@@ -9,3 +10,16 @@ class Todo(models.Model):
     delete_at = models.DateTimeField(null=True)
     status = models.IntegerField(default=0)
     
+
+class TestValidation(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    url = models.URLField()
+    file_path = models.FilePathField()
+    ip = models.IPAddressField()
+    integer = models.IntegerField()
+    float = models.FloatField()
+    decimal = models.DecimalField()
+    date = models.DateField()
+    time = models.TimeField()
+    time_now =models.TimeField()
