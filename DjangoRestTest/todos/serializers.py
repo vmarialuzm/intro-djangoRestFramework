@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from .models import Todo
+from .models import Todo, TestValidation
+from .validators import starts_with_t
 
 class TodoSerializer(serializers.ModelSerializer):
+    #title = serializers.CharField(max_length=100, validators=[starts_with_t])
     #title = serializers.CharField(allow_blank=True)
     #title = serializers.CharField(trim_whitespace=True)
     #title = serializers.CharField(max_length=100,min_length=10)
@@ -58,10 +60,18 @@ class TestTodoSerializer(serializers.Serializer):
     
 
 class TestValidationSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(allow_blank=True)
+    email = serializers.EmailField(allow_blank=True)
+    url = serializers.URLField(allow_blank=True)
+    ip = serializers.IPAddressField(protocol="both")
+    integer = serializers.IntegerField(min_value=0, max_value=15)
+    float = serializers.FloatField(min_value=0, max_value=15)
+    time_now = serializers.HiddenField(default="08:00:00")
+    
     class Meta:
-        model = Todo
+        model = TestValidation
         fields = (
-            "name", "email", "url", "file_path",
+            "name", "email", "url",
             "ip", "integer", "float","decimal",
             "date","time","time_now"
         )
